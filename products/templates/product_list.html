@@ -2,7 +2,11 @@
 {% block title %}Products{% endblock title %}
 
 {% block content %}
+            {% if title %}
+            <div class="container"><center><h3>{{title}}</h3></center></div>
+            {%else%}
             <div class="container"><center><h3>All Products</h3></center></div>
+            {%endif%}
             <div class="container">
             {% if all_products %}
                 <div class="row">
@@ -24,8 +28,15 @@
             {% else %}
                 <div class="jumbotron">
                     <hr class="my-4">
-                    <center><h2 class="display-4">Product of <strong>ID:{{search_product}}</strong> not available!</h2></center>
+                    <center><h2 class="display-4">Not available!</h2></center>
                 </div>
             {%endif%}
+                {% if not all_products %}
+                <div class="container">
+                    <div class="jumbotron">
+                        <center><h1 class="display-3">{{message}}</h1></center>
+                    </div>
+                </div>
+                {% endif%}
             </div>
     {% endblock content%}

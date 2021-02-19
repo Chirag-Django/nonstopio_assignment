@@ -1,9 +1,8 @@
 from django.shortcuts import render
 from .models import Product, Recommendation
 from django.http import Http404
-from django.db.models import Q
-
-# Create your views here.
+import pandas as pd
+from collections import OrderedDict
 
 def index(request):
     return render(request,'index.html')
@@ -11,6 +10,69 @@ def index(request):
 def product_list(request):
     products = Product.objects.all()
     return render(request,'product_list.html',{'all_products':products})
+
+#COLLABARATIVE RECOMMENDATION
+
+def top_ten_list(request):
+    products = Recommendation.objects.all()
+    temp_list = []
+    title = 'TOP TEN SEARCHES!!!'
+    for record in products:
+        tup = (record.product_id.pk,record.user_id.pk)
+        temp_list.append(tup)
+    df = pd.DataFrame(temp_list)
+    duplicate_users_and_products = df.pivot_table(index=[0, 1], aggfunc='size')
+    duplicates_counter_dict = duplicate_users_and_products.to_dict()
+    sorted_values = sorted(duplicates_counter_dict.values(), reverse=True)
+    sorted_dict = {}
+    for i in sorted_values:
+        for k in duplicates_counter_dict.keys():
+            if duplicates_counter_dict[k] == i:
+                sorted_dict[k] = duplicates_counter_dict[k]
+    top_item_pk = list()
+    for k, v in sorted_dict.items():
+        top_item_pk.append(k[0])
+    top_item_pk = list(OrderedDict.fromkeys(top_item_pk))
+    top_ten_item_pk = top_item_pk[:10]
+    products = Product.objects.filter(id__in=top_ten_item_pk)
+    objects = dict([(obj.id, obj) for obj in products])
+    sorted_objects = [objects[id] for id in top_item_pk]
+    return render(request,'product_list.html',{'all_products':sorted_objects,'title':title})
+
+#CONTENT BASED RECOMMENDATIONS
+def user_search_based_recommendation(request,id):
+    products = Recommendation.objects.all()
+    temp_list = []
+    sorted_objects = []
+    message = ''
+    title = 'Your Favorite Searches!!!'
+    for record in products:
+        if record.user_id.pk == id:
+            tup = (record.product_id.pk,record.user_id.pk)
+            temp_list.append(tup)
+    if temp_list:
+        df = pd.DataFrame(temp_list)
+        duplicate_users_and_products = df.pivot_table(index=[0, 1], aggfunc='size')
+        duplicates_counter_dict = duplicate_users_and_products.to_dict()
+        print(duplicates_counter_dict)
+        sorted_values = sorted(duplicates_counter_dict.values(), reverse=True)
+        sorted_dict = {}
+        for i in sorted_values:
+            for k in duplicates_counter_dict.keys():
+                if duplicates_counter_dict[k] == i:
+                    sorted_dict[k] = duplicates_counter_dict[k]
+        top_item_pk = list()
+        for k, v in sorted_dict.items():
+            top_item_pk.append(k[0])
+        top_item_pk = list(OrderedDict.fromkeys(top_item_pk))
+        top_ten_item_pk = top_item_pk[:10]
+        products = Product.objects.filter(id__in=top_ten_item_pk)
+        objects = dict([(obj.id, obj) for obj in products])
+        sorted_objects = [objects[id] for id in top_item_pk]
+    else:
+        message = "You Didn't Explore Different Products Yet!!"
+    return render(request, 'product_list.html',{'message':message,'all_products':sorted_objects,'title':title})
+
 
 def product_details(request,id):
     global message

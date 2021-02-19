@@ -30,16 +30,19 @@
           <a class="nav-link active" aria-current="page" href="{% url 'users:update_profile' %}">| Welcome <strong>{{request.user.username|title}}</strong> | </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">Recommendations</a>
+          <a class="nav-link active" aria-current="page" href="{% url 'user_recommendations' id=request.user.pk %}">Recommendations</a>
         </li>
         {% else %}
         <li class="nav-item">
           <a class="nav-link active" aria-current="page"  href="{% url 'users:register' %}">Register</a>
         </li>
-                <li class="nav-item">
+        <li class="nav-item">
           <a class="nav-link active" aria-current="page"  href="{% url 'users:login' %}">Login</a>
         </li>
         {%endif%}
+                <li class="nav-item">
+          <a class="nav-link active" aria-current="page"  href="{% url 'top_ten_list' %}"><em>Most Wanted!!</em></a>
+        </li>
 
       </ul>
       <form class="d-flex" action="{% url 'search_products' %}">
