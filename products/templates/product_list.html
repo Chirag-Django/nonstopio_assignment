@@ -13,7 +13,6 @@
                             <h5 class="card-title">Product Id: {{product.id}}</h5>
                             <h6 class="card-subtitle mb-2 text-muted">Product Shape: {{product.product_shape}}</h6>
                             <h6 class="card-subtitle mb-2 text-muted">Product Size: {{product.product_size}}</h6>
-                              <h6 class="card-subtitle mb-2 text-muted">Product Location: {{product.product_location}}</h6>
                             <h6 class="card-subtitle mb-2 text-muted"><strong>Product Price: Rs.{{product.product_price}}/-</strong></h6>
                               <a href="{% url 'product_details' id=product.id %}" class="btn btn-primary btn-sm">Details</a>
                           </div>
@@ -23,7 +22,10 @@
                     {% endfor %}
                 </div>
             {% else %}
-                <center>NO PRODUCTS FOUND!!!!</center>
+                <div class="jumbotron">
+                    <hr class="my-4">
+                    <center><h2 class="display-4">Product of <strong>ID:{{search_product}}</strong> not available!</h2></center>
+                </div>
             {%endif%}
             </div>
     {% endblock content%}

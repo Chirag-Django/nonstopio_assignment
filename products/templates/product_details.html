@@ -12,7 +12,7 @@
                 <hr class="my-4">
                 <p class="lead">Product Shape: {{product_details.product_shape}} <br></p>
                 <strong><p class="lead">Product Price: {{product_details.product_price}} <br></p></strong>
-                <span class="lead">Item Image:</span> <img style="width: 250px; height: 250px" src="{% static 'images/image-not-available.jpg'%}" alt="No Image Found">
+                <span class="lead">Item Image</span><br> <img style="width: 250px; height: 250px" src="{% static 'images/image-not-available.jpg'%}" alt="No Image Found">
             <br>
         </div>
         <br>
@@ -21,9 +21,11 @@
                 <h3>{{message}}</h3>
                 {% endif %}
         </div>
-        <div class="container">
-            <a href="{% url 'product_list' %}" class="btn btn-secondary">Back to all Products</a>
+        <center>
+                    <div class="container">
+            <a href="{% url 'product_list' %}" class="btn btn-warning">Back to Products Page</a>
         </div>
+        </center>
 
 {% endblock content%}
 

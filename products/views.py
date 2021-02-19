@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .models import Product
+from .models import Product, Recommendation
 from django.http import Http404
 from django.db.models import Q
 
@@ -26,7 +26,11 @@ def product_details(request,id):
 def search_products(request):
     search_product = request.GET.get('q')
     if search_product:
-        products = Product.objects.filter(Q(product_shape__icontains=search_product)|Q(product_location__icontains=search_product))
+        products = Product.objects.filter(id=search_product)
+        product = products.first()
+        if request.user.is_authenticated:
+            user = request.user
+            Recommendation.objects.create(user_id=user,product_id=product)
     else:
         products = Product.objects.none()
     return render(request,'product_list.html',{'all_products':products,'search_product':search_product})

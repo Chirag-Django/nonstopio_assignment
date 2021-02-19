@@ -12,6 +12,9 @@ class Profile(models.Model):
     class Meta:
         managed = False
 
+    def __str__(self):
+        return str(self.user.primary_key)
+
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):
     if created:

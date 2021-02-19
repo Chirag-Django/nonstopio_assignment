@@ -27,7 +27,10 @@
           <a class="nav-link active" aria-current="page"  href="{% url 'users:logout' %}">Logout</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page"  href="{% url 'users:update_profile' %}">Update Profile</a>
+          <a class="nav-link active" aria-current="page" href="{% url 'users:update_profile' %}">| Welcome <strong>{{request.user.username|title}}</strong> | </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="#">Recommendations</a>
         </li>
         {% else %}
         <li class="nav-item">
@@ -40,7 +43,7 @@
 
       </ul>
       <form class="d-flex" action="{% url 'search_products' %}">
-        <input class="form-control me-2" type="search" name="q" placeholder="Shape/Location" aria-label="Search">
+        <input class="form-control me-2" type="search" name="q" placeholder="Enter Product ID" aria-label="Search">
         <button class="btn btn-outline-success" type="submit">Search</button>
       </form>
     </div>
