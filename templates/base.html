@@ -12,7 +12,7 @@
   <div class="container">
       <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <div class="container-fluid">
-    <a class="navbar-brand" href="#">E-Comm</a>
+    <a class="navbar-brand" href="{% url 'home' %}">E-Comm</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -21,9 +21,7 @@
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" href="{% url 'product_list' %}">Products</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page"  href="{% url 'users:register' %}">Register</a>
-        </li>
+
         {% if request.user.is_authenticated %}
         <li class="nav-item">
           <a class="nav-link active" aria-current="page"  href="{% url 'users:logout' %}">Logout</a>
@@ -32,14 +30,17 @@
           <a class="nav-link active" aria-current="page"  href="{% url 'users:update_profile' %}">Update Profile</a>
         </li>
         {% else %}
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page"  href="{% url 'users:register' %}">Register</a>
+        </li>
                 <li class="nav-item">
           <a class="nav-link active" aria-current="page"  href="{% url 'users:login' %}">Login</a>
         </li>
         {%endif%}
 
       </ul>
-      <form class="d-flex">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+      <form class="d-flex" action="{% url 'search_products' %}">
+        <input class="form-control me-2" type="search" name="q" placeholder="Shape/Location" aria-label="Search">
         <button class="btn btn-outline-success" type="submit">Search</button>
       </form>
     </div>

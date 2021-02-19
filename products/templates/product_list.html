@@ -13,9 +13,9 @@
                             <h5 class="card-title">Product Id: {{product.id}}</h5>
                             <h6 class="card-subtitle mb-2 text-muted">Product Shape: {{product.product_shape}}</h6>
                             <h6 class="card-subtitle mb-2 text-muted">Product Size: {{product.product_size}}</h6>
-                              <h6 class="card-subtitle mb-2 text-muted">Product Price: {{product.product_location}}</h6>
+                              <h6 class="card-subtitle mb-2 text-muted">Product Location: {{product.product_location}}</h6>
                             <h6 class="card-subtitle mb-2 text-muted"><strong>Product Price: Rs.{{product.product_price}}/-</strong></h6>
-                              <button class="btn btn-primary btn-sm">Details</button>
+                              <a href="{% url 'product_details' id=product.id %}" class="btn btn-primary btn-sm">Details</a>
                           </div>
                         </div>
 

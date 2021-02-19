@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Products{% endblock title %}
+
+{% block content %}
+
+    <div class="container">
+        {% if product_details %}
+        <div class="jumbotron jumbotron-fluid">
+
+                <h1 class="display-4">Product Id: {{product_details.id}} <br></h1>
+                <hr class="my-4">
+                <p class="lead">Product Shape: {{product_details.product_shape}} <br></p>
+                <strong><p class="lead">Product Price: {{product_details.product_price}} <br></p></strong>
+                <span class="lead">Item Image:</span> <img style="width: 250px; height: 250px" src="{% static 'images/image-not-available.jpg'%}" alt="No Image Found">
+            <br>
+        </div>
+        <br>
+        {% endif %}
+                {% if message %}
+                <h3>{{message}}</h3>
+                {% endif %}
+        </div>
+        <div class="container">
+            <a href="{% url 'product_list' %}" class="btn btn-secondary">Back to all Products</a>
+        </div>
+
+{% endblock content%}
+
