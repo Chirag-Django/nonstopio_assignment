@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block title %}Products{% endblock title %}
+
+{% block content %}
+            <div class="container"><center><h3>All Products</h3></center></div>
+            <div class="container">
+            {% if all_products %}
+                <div class="row">
+                    {% for product in all_products %}
+                    <div class="col">
+                        <div class="card" style="width: 16rem;">
+                          <div class="card-body">
+                            <h5 class="card-title">Product Id: {{product.id}}</h5>
+                            <h6 class="card-subtitle mb-2 text-muted">Product Shape: {{product.product_shape}}</h6>
+                            <h6 class="card-subtitle mb-2 text-muted">Product Size: {{product.product_size}}</h6>
+                              <h6 class="card-subtitle mb-2 text-muted">Product Price: {{product.product_location}}</h6>
+                            <h6 class="card-subtitle mb-2 text-muted"><strong>Product Price: Rs.{{product.product_price}}/-</strong></h6>
+                              <button class="btn btn-primary btn-sm">Details</button>
+                          </div>
+                        </div>
+
+                    </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <center>NO PRODUCTS FOUND!!!!</center>
+            {%endif%}
+            </div>
+    {% endblock content%}
