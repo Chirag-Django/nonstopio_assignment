@@ -30,14 +30,16 @@ def top_ten_list(request):
             if duplicates_counter_dict[k] == i:
                 sorted_dict[k] = duplicates_counter_dict[k]
     top_item_pk = list()
+    print(top_item_pk)
     for k, v in sorted_dict.items():
         top_item_pk.append(k[0])
     top_item_pk = list(OrderedDict.fromkeys(top_item_pk))
     top_ten_item_pk = top_item_pk[:10]
     products = Product.objects.filter(id__in=top_ten_item_pk)
     objects = dict([(obj.id, obj) for obj in products])
-    sorted_objects = [objects[id] for id in top_item_pk]
-    return render(request,'product_list.html',{'all_products':sorted_objects,'title':title})
+    sorted_objects = [objects[id] for id in top_ten_item_pk]
+    print(sorted_objects)
+    return render(request,'product_list.html',{'title':title,'all_products':sorted_objects})
 
 #CONTENT BASED RECOMMENDATIONS
 def user_search_based_recommendation(request,id):
@@ -68,7 +70,7 @@ def user_search_based_recommendation(request,id):
         top_ten_item_pk = top_item_pk[:10]
         products = Product.objects.filter(id__in=top_ten_item_pk)
         objects = dict([(obj.id, obj) for obj in products])
-        sorted_objects = [objects[id] for id in top_item_pk]
+        sorted_objects = [objects[id] for id in top_ten_item_pk]
     else:
         message = "You Didn't Explore Different Products Yet!!"
     return render(request, 'product_list.html',{'message':message,'all_products':sorted_objects,'title':title})
