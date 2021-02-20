@@ -23,22 +23,26 @@ def top_ten_list(request):
     df = pd.DataFrame(temp_list)
     duplicate_users_and_products = df.pivot_table(index=[0, 1], aggfunc='size')
     duplicates_counter_dict = duplicate_users_and_products.to_dict()
-    sorted_values = sorted(duplicates_counter_dict.values(), reverse=True)
+    final_duplicated_counter_dict = {}
+    for key,value in duplicates_counter_dict.items():
+        if key[0] in final_duplicated_counter_dict:
+            final_duplicated_counter_dict[key[0]] += value
+        else:
+            final_duplicated_counter_dict[key[0]] = value
+    sorted_values = sorted(final_duplicated_counter_dict.values(), reverse=True)
     sorted_dict = {}
     for i in sorted_values:
-        for k in duplicates_counter_dict.keys():
-            if duplicates_counter_dict[k] == i:
-                sorted_dict[k] = duplicates_counter_dict[k]
+        for k in final_duplicated_counter_dict.keys():
+            if final_duplicated_counter_dict[k] == i:
+                sorted_dict[k] = final_duplicated_counter_dict[k]
     top_item_pk = list()
-    print(top_item_pk)
     for k, v in sorted_dict.items():
-        top_item_pk.append(k[0])
+        top_item_pk.append(k)
     top_item_pk = list(OrderedDict.fromkeys(top_item_pk))
     top_ten_item_pk = top_item_pk[:10]
     products = Product.objects.filter(id__in=top_ten_item_pk)
     objects = dict([(obj.id, obj) for obj in products])
     sorted_objects = [objects[id] for id in top_ten_item_pk]
-    print(sorted_objects)
     return render(request,'product_list.html',{'title':title,'all_products':sorted_objects})
 
 #CONTENT BASED RECOMMENDATIONS
@@ -56,7 +60,6 @@ def user_search_based_recommendation(request,id):
         df = pd.DataFrame(temp_list)
         duplicate_users_and_products = df.pivot_table(index=[0, 1], aggfunc='size')
         duplicates_counter_dict = duplicate_users_and_products.to_dict()
-        print(duplicates_counter_dict)
         sorted_values = sorted(duplicates_counter_dict.values(), reverse=True)
         sorted_dict = {}
         for i in sorted_values:
