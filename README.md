@@ -14,6 +14,8 @@
 4. User Personalized Recommendation -> Simple Content based filtering based on logged in user's search history
 5. Product Search functionality based on its id.
 
+** Note: populate_products.py can be used for populating the products table with dummy data.
+
 ## Screen Shots
 ### Home Page
 ![alt text](https://github.com/Chirag-Django/nonstopio_assignment/blob/master/static/images/home_page.jpg?raw=true)
