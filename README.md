@@ -15,3 +15,30 @@
 5. Product Search functionality based on its id.
 
 ## Screen Shots
+### Home Page
+![alt text](https://github.com/Chirag-Django/nonstopio_assignment/blob/master/static/images/home_page.jpg?raw=true)
+
+### Products Page
+![alt text](https://github.com/Chirag-Django/nonstopio_assignment/blob/master/static/images/products_page.jpg?raw=true)
+
+### Register
+![alt text](https://github.com/Chirag-Django/nonstopio_assignment/blob/master/static/images/register_page.jpg?raw=true)
+
+### Log in
+![alt text](https://github.com/Chirag-Django/nonstopio_assignment/blob/master/static/images/login_page.jpg?raw=true)
+
+### Home Page after Log in
+![alt text](https://github.com/Chirag-Django/nonstopio_assignment/blob/master/static/images/home_page_after_login.jpg?raw=true)
+
+### User specific recommendations
+![alt text](https://github.com/Chirag-Django/nonstopio_assignment/blob/master/static/images/user_specific_recommendations.jpg?raw=true)
+
+### All User Based recommendations
+![alt text](https://github.com/Chirag-Django/nonstopio_assignment/blob/master/static/images/all_users_based_recommendations.jpg?raw=true)
+
+### Search Functionality
+![alt text](https://github.com/Chirag-Django/nonstopio_assignment/blob/master/static/images/search_functionality.jpg?raw=true)
+
+### Log out
+![alt text](https://github.com/Chirag-Django/nonstopio_assignment/blob/master/static/images/logout.jpg?raw=true)
+
